@@ -1,20 +1,22 @@
+--Patchma Chill--
+
 --[[
 	patchma hub by MyWorld
 	optimize the optimized
 
 	IDs of paid accessories:
 
-	-for arms 11159410305,11263254795 or 14255556501,14255554762 or 12344545199,12344591101
+	-for arms 11159410305,11263254795 or 14255556501,14255554762 or 12344545199,12344591101 or 13839976999,13831200263
 
-	-for legs 14768693948,14768701869 or 11159483910,12652786974
+	-for legs 14768693948,14768701869 or 11159483910,12652786974 or 17401151565,17387616772
 
 	-for torso 14255528083 or 13421786478 or 14768678294
 
 	or anything else that covers ur torso. examples:
-	14532301415,13423624885,11502853991,14053485259,13779879140,14443132226
+	14532301415,13423624885,11502853991,14053485259,13779879140,14443132226,17163407577,16297156693,17180496303,17171230401
 	can be same stuff but different colors
 
-	there are 54 ways to make a rig with the ids above
+	there are 156 ways to make a rig with the ids above
 
 	IDs of free accessories:
 	3033910400,3409612660,3438342658,3398308134,4324158403,3822880197,4154538250,3443038622,4819740796
@@ -43,8 +45,6 @@ local tunpack=table.unpack
 
 --the script doesnt have to read global varaibles every time to get them
 --why not have them saved in local varaibles for faster access times
-local pairs=pairs 
-local ipairs=ipairs
 local next=next
 local pcall=pcall
 local xpcall=xpcall
@@ -148,34 +148,42 @@ local Inverse=cfGet(cf_0,"Inverse")
 local Lerp=cfGet(cf_0,"Lerp")
 
 local guiTheme={
-	guiTitle="MeowVis",
-	windowTitleColor=c3(1,0,0),
+	guiTitle="patchma hub",
+	windowTitleColor=c3(0,0,1),
 	windowTopColor=c3(0,0,0),
-	windowBottomColor=c3(1,0,0.0),
-	windowMinimizedSize={X=200,Y=22},
-	windowRegularSize={X=200,Y=220},
-	buttonsTextColor=c3(1.0,0.0,0.0),
-	labelsTextColor=c3(1.0,0.0,0.0),
+	windowBottomColor=c3(0,0,0.584314),
+	windowMinimizedSize={X=220,Y=22},
+	windowRegularSize={X=220,Y=290},
+	buttonsTextColor=c3(0.0941177,0.317647,0.878431),
+	labelsTextColor=c3(0.560784,0.560784,0.560784),
 	listTopColor=c3(0,0,0),
-	listBottomColor=c3(0.0,0.0,0.0)
+	listBottomColor=c3(0.0705882,0.0705882,0.0705882)
 }
 
 local accessorylimbs={
-
 	{meshid="11263221350",textureid="11263219250",C0=angles(1.5707963267948966,0,1.5707963267948966),Name="Left Arm"},
 	{meshid="11159370334",textureid="11159284657",C0=angles(-1.5707963267948966,0,1.5707963267948966),Name="Right Arm"},
 
 	{meshid="14255522247",textureid="",C0=angles(1.5707963267948966,0,1.5707963267948966),Name="Left Arm"},
 	{meshid="14255522247",textureid="",C0=angles(-1.5707963267948966,0,1.5707963267948966),Name="Right Arm"},
 
+	{meshid="17374767929",textureid="",C0=angles(1.5707963267948966,0,1.5707963267948966),Name="Left Arm"},
+	{meshid="17374767929",textureid="",C0=angles(-1.5707963267948966,0,1.5707963267948966),Name="Right Arm"},
+
 	{meshid="12344207333",textureid="",C0=angles(2,0,0),Name="Left Arm"},
 	{meshid="12344206657",textureid="",C0=angles(2,0,0),Name="Right Arm"},
+
+	{meshid="13831073174",textureid="",C0=cfMul(cf(0.017,0,-0.23),angles(-1.4835298641951802,-0.15707963267948966,2.199114857512855)),Name="Left Arm"},
+	{meshid="13839903766",textureid="",C0=cfMul(cf(0,-0.62,-0.01),angles(1.6580627893946132,0.15707963267948966,-2.199114857512855)),Name="Right Arm"},
 
 	{meshid="11159370334",textureid="11159285454",C0=angles(1.5707963267948966,0,1.5707963267948966),Name="Left Leg"},
 	{meshid="12652772399",textureid="12652775021",C0=cf(0,-0.125,0),Name="Right Leg"},
 
 	{meshid="14768684979",textureid="",C0=angles(0,0,1.5707963267948966),Name="Left Leg"},
 	{meshid="14768684979",textureid="",C0=angles(0,0,1.5707963267948966),Name="Right Leg"},
+
+	{meshid="17387586286",textureid="",C0=angles(1.5707963267948966,0,1.5707963267948966),Name="Left Leg"},
+	{meshid="17387586286",textureid="",C0=angles(-1.5707963267948966,0,1.5707963267948966),Name="Right Leg"},
 
 	{meshid="14768666349",textureid="",C0=cf_0,Name="Torso"},
 	{meshid="14241018198",textureid="",C0=cf_0,Name="Torso"},
@@ -193,7 +201,7 @@ local accessorylimbs={
 }
 
 local function gp(p,n,cl)
-	for i,v in ipairs(GetChildren(p)) do
+	for i,v in next,GetChildren(p) do
 		if IsA(v,cl) and (insGet(v,"Name")==n) then
 			return v
 		end
@@ -220,18 +228,6 @@ local function getNetlessVelocity(realVel)
 	end
 	return realVel*v3_xz+v3_net
 end
-local sft=1/45
-local function getFallingTime(Ypos,destY,gravity)
-	local velY=25.01
-	local fallingTime=0
-	gravity=gravity*sft
-	while (Ypos>destY) or (velY>0) do
-		fallingTime=fallingTime+sft
-		velY=velY-gravity
-		Ypos=Ypos+(velY*sft)
-	end
-	return fallingTime
-end
 local function getMeshOfPart(v)
 	if IsA(v,"MeshPart") then
 		return insGet(v,"MeshId"), insGet(v,"TextureID")
@@ -251,7 +247,7 @@ local function makeplaceholder(v)
 		insSet(v,"Archivable",true)
 	end
 	v=Clone(v)
-	for i,v in ipairs(GetChildren(v)) do
+	for i,v in next,GetChildren(v) do
 		if IsA(v,"SpecialMesh") then
 			insSet(v,"Name",rs())
 			ClearAllChildren(v)
@@ -282,7 +278,7 @@ insSet(i1,"AnchorPoint",v2(0.5,0))
 insSet(i1,"Active",true)
 insSet(i1,"BorderSizePixel",0)
 insSet(i1,"ClipsDescendants",true)
-insSet(i1,"Position",u2(0.5,0,0.5,-150))
+insSet(i1,"Position",u2(0.5,0,0.5,guiTheme.windowRegularSize.Y/-2))
 insSet(i1,"Size",u2(0,guiTheme.windowRegularSize.X,0,guiTheme.windowRegularSize.Y))
 insSet(i1,"Name",rs())
 insSet(i1,"Parent",i10)
@@ -327,7 +323,7 @@ insSet(i7,"Parent",i2)
 insSet(i8,"AnchorPoint",v2(1,0))
 insSet(i8,"BackgroundTransparency",1)
 insSet(i8,"Position",u2(1,0,0,0))
-insSet(i8,"Size",u2(0,50,0,guiTheme.windowMinimizedSize.Y))
+insSet(i8,"Size",u2(0,40,0,guiTheme.windowMinimizedSize.Y))
 insSet(i8,"Name",rs())
 insSet(i8,"Parent",i2)
 insSet(i8,"Font",e.Font.SourceSans)
@@ -469,13 +465,10 @@ local function Draggable(window,obj)
 		end
 	end
 	Connect(insGet(window,"DescendantAdded"),ondes)
-	for i,v in ipairs(GetDescendants(window)) do 
+	for i,v in next,GetDescendants(window) do 
 		ondes(v)
 	end
 end
-
-local cfr = nil
-
 local function btn(txt, f)
 	local i1=i("TextBox") 
 	local i2=i("TextButton")
@@ -518,7 +511,8 @@ end
 
 Draggable(i1)
 
-
+lbl("by MyWorld")
+lbl("discord.gg/QMy5f6DrbH")
 
 local allowshiftlock=nil
 local ctrltp=nil
@@ -527,7 +521,9 @@ local clickfling=nil
 local highlightflingtargets=nil
 local discharscripts=nil
 local flingchangestate=nil
-local respawntp=true
+local respawntp=nil
+local breakjointsmethod=nil
+local simrad=false
 
 local c=nil
 local function stopreanimate() 
@@ -611,9 +607,9 @@ local function reanimate()
 	camcon2=Connect(GetPropertyChangedSignal(ws,"CurrentCamera"),onnewcamera)
 	onnewcamera()
 
-	local rGravity=insGet(ws,"Gravity")
+	local velYdelta=insGet(ws,"Gravity")*0.025
 	Connect(GetPropertyChangedSignal(ws,"Gravity"),function()
-		rGravity=insGet(ws,"Gravity")
+		velYdelta=insGet(ws,"Gravity")*0.025
 	end)
 
 	local fpdh=insGet(ws,"FallenPartsDestroyHeight")
@@ -644,7 +640,7 @@ local function reanimate()
 	}
 	rootpart=R6parts.root
 	local cframes={}
-	for i,v in pairs(R6parts) do
+	for i,v in next,R6parts do
 		cframes[v]=cfr
 	end
 	local joints={
@@ -690,7 +686,7 @@ local function reanimate()
 	local refreshjointsI=nil
 	refreshjointsI=function(part)
 		tinsert(refreshedjoints,part)
-		for i,v in pairs(joints) do
+		for i,v in next,joints do
 			local part0=v.Part0
 			local part1=v.Part1
 			if part1 and (part0==part) then
@@ -732,7 +728,7 @@ local function reanimate()
 	}
 
 	local function getPart(name,blacklist)
-		for i,v in pairs(cframes) do
+		for i,v in next,cframes do
 			if (i.Name==name) and not (blacklist and tfind(blacklist,i)) then
 				return i
 			end
@@ -741,7 +737,7 @@ local function reanimate()
 	end
 
 	local function getJoint(name)
-		for i,v in pairs(joints) do
+		for i,v in next,joints do
 			if v.Name==name then
 				return v
 			end
@@ -751,13 +747,13 @@ local function reanimate()
 
 	local function getPartFromMesh(m,t,blacklist)
 		if blacklist then
-			for v,_ in pairs(cframes) do
+			for v,_ in next,cframes do
 				if v.m and (not tfind(blacklist,v)) and sfind(v.m,m) and sfind(v.t,t) then
 					return v
 				end
 			end
 		else
-			for v,_ in pairs(cframes) do
+			for v,_ in next,cframes do
 				if v.m and sfind(v.m,m) and sfind(v.t,t) then
 					return v
 				end
@@ -776,12 +772,12 @@ local function reanimate()
 			if j then
 				return j
 			end
-			for i,v in pairs(joints) do
+			for i,v in next,joints do
 				if v.Part0==p then
 					return v
 				end
 			end
-			for i,v in pairs(joints) do
+			for i,v in next,joints do
 				if v.Part1==p then
 					return v
 				end
@@ -801,14 +797,14 @@ local function reanimate()
 	local characters={}
 	local function refreshrayfilter()
 		tclear(rayfilter)
-		for i,v in pairs(characters) do
+		for i,v in next,characters do
 			tinsert(rayfilter,v)
 		end
 		raycastparams.FilterDescendantsInstances=rayfilter
 	end
 	local flingtable={}
 	local rootparts={}
-	for i,v in ipairs(accessorylimbs) do
+	for i,v in next,accessorylimbs do
 		v.p=getPart(v.Name)
 	end
 	local function makePartCons(p,t)
@@ -846,7 +842,7 @@ local function reanimate()
 					local meshid,textureid=getMeshOfPart(p)
 					if meshid then
 						local found=false
-						for i,_ in pairs(cframes) do
+						for i,_ in next,cframes do
 							if (meshid==i.m) and (textureid==i.t) then
 								local p1=i.p
 								if p1 and IsDescendantOf(p1,c) then
@@ -880,7 +876,7 @@ local function reanimate()
 							end
 						end
 						if not found then
-							for i,l in ipairs(accessorylimbs) do
+							for i,l in next,accessorylimbs do
 								if l.p and sfind(meshid,l.meshid) and sfind(textureid,l.textureid) then
 									local t={Name=insGet(p,"Name"),l=insGet(p,"Position"),m=meshid,t=textureid,p=p}
 									makePartCons(p,t)
@@ -910,8 +906,10 @@ local function reanimate()
 		end
 	end
 
+	local simradv=0
 	local charcons={}
 	local function onplayer(v)
+		simradv=simradv+1000
 		local lastc=nil
 		local function oncharacter()
 			local newc=insGet(v,"Character")
@@ -922,7 +920,7 @@ local function reanimate()
 				if v==lp then
 					if discharscripts then
 						Connect(insGet(newc,"DescendantAdded"),discharscripts)
-						for i,v in ipairs(GetDescendants(newc)) do
+						for i,v in next,GetDescendants(newc) do
 							if IsA(v,"Script") then
 								insSet(v,"Disabled",true)
 							end
@@ -939,7 +937,7 @@ local function reanimate()
 								insGet(hum,"ChangeState")(hum,e.HumanoidStateType.Physics)
 							end
 						end
-						for i,v in pairs(tclone(flingtable)) do
+						for i,v in next,tclone(flingtable) do
 							if not c then
 								return
 							end
@@ -974,24 +972,24 @@ local function reanimate()
 						insSet(hrp,"CFrame",cfr)
 						twait(0.2501)
 					end
-					if respawntp then
+					if respawntp==1 then
 						local startpos=pos+v3(mrandom(-32,32),0,mrandom(-32,32))
 						local dir=nil
 						local poscheck=true
 						while poscheck do
 							poscheck=false
-							for i,v in pairs(rootparts) do
+							for i,v in next,rootparts do
 								local diff=(startpos-insGet(v,"Position"))*v3_101
 								if v3Get(diff,"Magnitude")<10 then
 									poscheck=true
-									dir=dir or (v3Get(diff,"Unit") * 3)
+									dir=dir or (v3Get(diff,"Unit")*3)
 									startpos=startpos+dir
 								end
 							end
 							local diff=(startpos-pos)*v3_101
 							if v3Get(diff,"Magnitude")<10 then
 								poscheck=true
-								dir=dir or (v3Get(diff,"Unit") * 3)
+								dir=dir or (v3Get(diff,"Unit")*3)
 								startpos=startpos+dir
 							end
 						end
@@ -1000,14 +998,45 @@ local function reanimate()
 						insSet(hrp,"AssemblyLinearVelocity",v3_0)
 						insSet(hrp,"AssemblyAngularVelocity",v3_0)
 						twait(0.2501)
+					elseif respawntp==2 then
+						insSet(hrp,"CFrame",cfAdd(cfr,cfGet(cfr,"RightVector")*3.5-cfGet(cfr,"LookVector")*3.5))
+						insSet(hrp,"AssemblyLinearVelocity",v3_0)
+						insSet(hrp,"AssemblyAngularVelocity",v3_0)
+						twait(0.2501)
+					elseif respawntp==3 then
+						local t=osclock()+0.2501
+						local startcf=cfAdd(cfMul(cfGet(cfr,"Rotation"),angles(1.5707963267948966,0,0)),pos*v3_101+v3_010*(fpdh+30))
+						while twait() do
+							insSet(hrp,"CFrame",startcf)
+							insSet(hrp,"AssemblyLinearVelocity",v3_0)
+							insSet(hrp,"AssemblyAngularVelocity",v3_0)
+							if osclock()>t then
+								break
+							end
+						end
 					end
 					if newc~=c then
 						return
 					end
 					primarypart=insGet(newc,"PrimaryPart") or hrp
-					insGet(newc,"BreakJoints")(newc)
+					if breakjointsmethod==1 then
+						insGet(newc,"BreakJoints")(newc)
+						local h=FindFirstChildOfClass(newc,"Humanoid")
+						if h then
+							insSet(h,"Health",0)
+						end
+					elseif breakjointsmethod==2 then
+						local h=FindFirstChildOfClass(newc,"Humanoid")
+						if h then
+							insSet(h,"Health",0)
+						else
+							insGet(newc,"BreakJoints")(newc)
+						end
+					else
+						insGet(newc,"BreakJoints")(newc)
+					end
 					Connect(insGet(newc,"DescendantAdded"),ondes)
-					for i,v in ipairs(GetDescendants(newc)) do
+					for i,v in next,GetDescendants(newc) do
 						ondes(v)
 					end
 				else
@@ -1021,9 +1050,11 @@ local function reanimate()
 		charcons[v]=Connect(GetPropertyChangedSignal(v,"Character"),oncharacter)
 		oncharacter()
 	end
-	for i,v in ipairs(GetPlayers(plrs)) do onplayer(v) end
+	for i,v in next,GetPlayers(plrs) do simradv=simradv+1000 if v~=lp then tspawn(onplayer,v) end end
 	Connect(insGet(plrs,"PlayerAdded"),onplayer)
+	onplayer(lp)
 	Connect(insGet(plrs,"PlayerRemoving"),function(v)
+		simradv=simradv-1000
 		local charcon=charcons[v]
 		if charcon then
 			Disconnect(charcon)
@@ -1031,12 +1062,27 @@ local function reanimate()
 		characters[v]=nil
 		rootparts[v]=nil
 	end)
+	local setsimrad=emptyfunction
+	if simrad then
+		setsimrad=function()
+			local canset,_=pcall(function()
+				insSet(lp,"SimulationRadius",simradv)
+			end)
+			if canset then
+				setsimrad=function()
+					insSet(lp,"SimulationRadius",simradv)
+				end
+			else
+				setsimrad=emptyfunction
+			end
+		end
+	end
 
 	local mradN05=rad(-0.5)
 	local KeyCode=e.KeyCode
-	local enumMLC=e.MouseBehavior.LockCenter
 	local enumMB2=e.UserInputType.MouseButton2
 	local enumMLCP=e.MouseBehavior.LockCurrentPosition
+	local enumMLC=(insGet(uis,"TouchEnabled") and enumMLCP) or e.MouseBehavior.LockCenter 
 	local enumMD=e.MouseBehavior.Default
 	local enumMW=e.UserInputType.MouseWheel
 	local enumMM=e.UserInputType.MouseMovement
@@ -1062,7 +1108,7 @@ local function reanimate()
 		if (type(key)~="string") or (type(mode)~="table") then
 			return
 		end
-		for i,v in pairs(mode) do
+		for i,v in next,mode do
 			if type(v)~="function" then
 				mode[i]=nil
 			end
@@ -1381,18 +1427,18 @@ local function reanimate()
 	local con=nil
 	local function mainFunction()
 		if not c then 
-			for i,v in pairs(cframes) do
+			for i,v in next,cframes do
 				local p=i.v
 				if p then
 					Destroy(p)
 				end
 			end
-			for i,v in pairs(flingtable) do
+			for i,v in next,flingtable do
 				if v then --it could be false
 					Destroy(v)
 				end
 			end
-			for i,v in pairs(charcons) do
+			for i,v in next,charcons do
 				Disconnect(v)
 			end
 			if clickConnection then
@@ -1723,34 +1769,56 @@ local function reanimate()
 		tclear(refreshedjoints)
 
 		local idlerv=v3(sin((sine-0.0375)*16),sin(sine*16),sin((sine+0.075)*16))
-		local idleoff=idlerv*0.001
+		local idleoff=idlerv*0.0015
 
 		local claimpos=insGet(primarypart,"Position")
 		local claimposY=v3Get(claimpos,"Y")
-		for i,v in pairs(cframes) do
+		for i,v in next,cframes do
 			local part=i.p
+			
 			if part then
 				if insGet(part,"ReceiveAge")==0 then
 					local placeholder=i.v
-					if placeholder then
-						insSet(placeholder,"Parent",nil)
-					end
 					if novoid and (cfGet(v,"Y")<novoid) then
 						v=cfAdd(v,v3_010*(novoid-cfGet(v,"Y")))
 					end
 					local lastpos=i.l
 					local vel=(cfGet(v,"Position")-lastpos)/delta
-					if v3Get(vel,"Magnitude")<0.15 then
+					local mag=v3Get(vel,"Magnitude")
+					if mag<0.15 then
+						if placeholder then
+							insSet(placeholder,"Parent",nil)
+						end
+						i.l=cfGet(v,"Position")
 						v=cfAdd(v,idleoff)
-					elseif v3Get(vel,"Magnitude")>speedlimit then
+					elseif mag>speedlimit then
+						if placeholder then
+							insSet(placeholder,"CFrame",v)
+							insSet(placeholder,"Parent",ws)
+						end
 						vel=v3Get(vel,"Unit")*speedlimit
-						v=cfAdd(cfGet(v,"Rotation"),lastpos+vel*delta)
+						local newpos=lastpos+vel*delta
+						v=cfAdd(cfGet(v,"Rotation"),newpos)
+						i.l=newpos
+					elseif placeholder then
+						insSet(placeholder,"Parent",nil)
+						i.l=cfGet(v,"Position")
 					end
-					i.l=cfGet(v,"Position")
 					local claimtime=i.c
 					if claimtime then
 						if sine-claimtime<retVelTime then
-							insSet(part,"AssemblyLinearVelocity",(claimpos-cfGet(v,"Position"))*v3_101/getFallingTime(cfGet(v,"Y"),claimposY,rGravity)+v3_net)
+							local Ydiff=cfGet(v,"Y")-claimposY
+							local velY=25.01
+							local fallingTime=0
+							while (Ydiff>0) or (velY>0) do
+								fallingTime=fallingTime+0.025
+								if fallingTime>0.6 then
+									break
+								end
+								velY=velY-velYdelta
+								Ydiff=Ydiff+(velY*0.025)
+							end
+							insSet(part,"AssemblyLinearVelocity",(claimpos-cfGet(v,"Position"))*v3_101/fallingTime+v3_net)
 						else
 							insSet(part,"AssemblyLinearVelocity",getNetlessVelocity(vel*noYvelTime+xzvel))
 						end
@@ -1765,18 +1833,19 @@ local function reanimate()
 					i.l=insGet(part,"Position")
 					local placeholder=i.v
 					if placeholder then
-						insSet(placeholder,"Parent",ws)
 						insSet(placeholder,"CFrame",v)
+						insSet(placeholder,"Parent",ws)
 					end
 				end
 			else
 				local placeholder=i.v
 				if placeholder then
-					insSet(placeholder,"Parent",ws)
 					insSet(placeholder,"CFrame",v)
+					insSet(placeholder,"Parent",ws)
 				end
 			end
 		end
+		setsimrad()
 	end
 
 	sine=osclock()
@@ -1858,8 +1927,16 @@ local function reanimate()
 	end
 	local function setCfr(v) --sets character cframe
 		if typeof(v)=="CFrame" then
+			local newpos=cfGet(v,"Position")
+			camcf=cfAdd(camcf,newpos-pos)
+			insSet(cam,"CFrame",camcf)
 			cfr=v
-			pos=cfGet(v,"Position")
+			pos=newpos
+		elseif typeof(v)=="Vector3" then
+			camcf=cfAdd(camcf,v-pos)
+			insSet(cam,"CFrame",camcf)
+			cfr=cfAdd(cfGet(cfr,"Rotation"),v)
+			pos=v
 		end
 	end
 	local function getVel() --returns character velocity
@@ -1899,7 +1976,6 @@ local function reanimate()
 		isFirstPerson=isFirstPerson
 	}
 end
-
 
 btn("Ordinance Glitcher", function()
 	local t=reanimate()
@@ -2193,6 +2269,56 @@ btn("Ordinance Glitcher", function()
 			i1.Text="UNALTERED"
 			i1.TextColor3=c3(0.25,0.0,0) -- like this
 			i1.TextStrokeColor3=c3(1.0, 0, 0)
+			task.spawn(ShadeID, 1837829473, 5)
+		end,
+		idle = function()
+			if attackAnimation then return attackAnimation() end
+			Q.C0=Lerp(Q.C0,cfMul(cf(-5-1*sin((sine+0.9)*200),3+0.5*sin((sine+25)*45),0),angles(0.17453292519943295*sin(sine*521),2.2689280275926285+0.2617993877991494*sin((sine+0.8)*4),-3.141592653589793-0.2617993877991494*sin((sine+9)*4))),deltaTime) 
+			E.C0=Lerp(E.C0,cfMul(cf(-5-1*sin((sine+0.25)*200),3+0.5*sin((sine+25)*45),0),angles(0.17453292519943295*sin((sine+0.25)*521),0.6981317007977318-0.2617993877991494*sin((sine+0.8)*4),3.141592653589793+0.2617993877991494*sin((sine+12)*4))),deltaTime) 
+			R.C0=Lerp(R.C0,cfMul(cf(-5+1*sin((sine+1.2)*200),3+0.5*sin((sine+15)*45),0),angles(0.17453292519943295*sin(sine*521),0.8726646259971648-0.2617993877991494*sin((sine+0.8)*4),-0.2617993877991494+0.2617993877991494*sin((sine+8)*4))),deltaTime) 
+			T.C0=Lerp(T.C0,cfMul(cf(-5-1*sin((sine+0.6)*200),3+0.5*sin((sine+65)*45),0),angles(0.17453292519943295*sin(sine*521),2.443460952792061+0.2617993877991494*sin((sine+0.8)*4),-0.2617993877991494*sin((sine+8)*4))),deltaTime) 
+
+			LeftShoulder.C0=Lerp(LeftShoulder.C0,cfMul(cf(-1,0.3 * sin(sine*4),0),angles(-0.6108652381980153,-1.1344640137963142+0.2617993877991494*sin(sine*100),-1.2217304763960306+0.3490658503988659*sin((sine+0.5)*4))),deltaTime) 
+			LeftHip.C0=Lerp(LeftHip.C0,cfMul(cf(-1,-0.6-0.15*sin(sine*4),-0.2-0.05*sin(sine*4)),angles(-0.6108652381980153,-0.8726646259971648+0.08726646259971647*sin(sine*100),-0.7853981633974483+0.12217304763960307*sin(sine*100))),deltaTime) 
+			RightShoulder.C0=Lerp(RightShoulder.C0,cfMul(cf(1,0.3 * sin(sine*4),0),angles(-0.6108652381980153,1.0471975511965976-0.2617993877991494*sin(sine*100),1.2217304763960306-0.3490658503988659*sin((sine+0.5)*4))),deltaTime) 
+			RightHip.C0=Lerp(RightHip.C0,cfMul(cf(1.2,-0.1-0.15*sin(sine*4),-1-0.05*sin(sine*4)),angles(-0.2617993877991494,1.0471975511965976,0.6981317007977318-0.12217304763960307*sin(sine*100))),deltaTime) 
+			RootJoint.C0=Lerp(RootJoint.C0,cfMul(cf(0,-0.5+0.15*sin(sine*4),0),angles(-1.9198621771937625+0.10471975511965978*sin(sine*100),0,3.4033920413889427)),deltaTime) 
+			Neck.C0=Lerp(Neck.C0,cfMul(cf(0,1,0),angles(-2.2689280275926285-0.08726646259971647*sin((sine+0.25)*4),0.2617993877991494+0.08726646259971647*sin(sine*523),2.8797932657906435+0.06981317007977318*sin((sine+52)*623))),deltaTime) 
+			--MW_animatorProgressSave: ColossalCrystalGreatsword-Purple_Handle,-5,1,1.2,200,0,10,0,521,3,0.5,15,45,50,-15,0.8,4,-,0,0,1,-15,15,8,4,ColossalCrystalGreatsword-Black_Handle,-5.,-1,0.6,200,,10,0,521,3,0.5,65,45,140,15,0.8,4,,0,0,1,,-15,8,4,LeftArm,-1,0,0,1,-35,,0,1,0.,0.3,0,4,-65,15,0,100,0,0,0,1,-70,20,0.5,4,LeftLeg,-1,0,0,1,-35,0,0,1,-0.6,-0.15,0,4,-50,5,0,100,-0.2,-0.05,0,4,-45,7,0,100,ColossalCrystalGreatsword-Red_Handle,-5,-1,0.9,200,0,10,0,521,3,0.5,25,45,130,15,0.8,4,,0,0,1,-180,-15,9,4,RightArm,1,0,0,1,-35,,0,1,0.,0.3,0,4,60,-15,0,100,0,0,0,4,70,-20,0.5,4,RightLeg,1.2,0,0,1,-15,0,0,1,-0.1,-0.15,0,4,60,,0,100,-1,-0.05,0,4,40,-7,0,100,ColossalCrystalGreatsword-Blue_Handle,-5.,-1,0.25,200,0,10,0.25,521,3,0.5,25,45,40,-15,0.8,4,,0,0,1,180,15,12,4,Torso,0,0,0,1,-110,6,0,100,-0.5,0.15,0,4,0,,52,,0,0,0,1,195,0,0,1,Head,0,0,0,1,-130,-5,0.25,4,1,0,0,1,15,5,0,523,0,0,0,1,165,4,52,623
+			i2.StudsOffsetWorldSpace=cframes[rootpart].Position 
+		end,
+		walk = function()
+			if attackAnimation then return attackAnimation() end
+			t.setWalkSpeed(18)
+			local Vfw, Vrt = velbycfrvec()
+
+			local rY, lY = raycastlegs()
+
+			local Ychg=velYchg()/20
+			t.setWalkSpeed(17)
+			Q.C0=Lerp(Q.C0,cfMul(cf(-5-1*sin((sine+0.9)*200),3+0.5*sin((sine+25)*45),0),angles(0.17453292519943295*sin(sine*521),2.2689280275926285+0.2617993877991494*sin((sine+0.8)*4),-3.141592653589793-0.2617993877991494*sin((sine+9)*4))),deltaTime) 
+			E.C0=Lerp(E.C0,cfMul(cf(-5-1*sin((sine+0.25)*200),3+0.5*sin((sine+25)*45),0),angles(0.17453292519943295*sin((sine+0.25)*521),0.6981317007977318-0.2617993877991494*sin((sine+0.8)*4),3.141592653589793+0.2617993877991494*sin((sine+12)*4))),deltaTime) 
+			R.C0=Lerp(R.C0,cfMul(cf(-5+1*sin((sine+1.2)*200),3+0.5*sin((sine+15)*45),0),angles(0.17453292519943295*sin(sine*521),0.8726646259971648-0.2617993877991494*sin((sine+0.8)*4),-0.2617993877991494+0.2617993877991494*sin((sine+8)*4))),deltaTime) 
+			T.C0=Lerp(T.C0,cfMul(cf(-5-1*sin((sine+0.6)*200),3+0.5*sin((sine+65)*45),0),angles(0.17453292519943295*sin(sine*521),2.443460952792061+0.2617993877991494*sin((sine+0.8)*4),-0.2617993877991494*sin((sine+8)*4))),deltaTime) 
+
+			RootJoint.C0=Lerp(RootJoint.C0,cfMul(cf(0,0.135 * sin((sine+0.1)*14),0),angles(-1.8325957145940461+0.05235987755982989*sin((sine-0.05)*14),0.008726646259971648*sin((sine-0.425)*-7),3.141592653589793+0.10471975511965978*sin((sine+0.1)*-7))),deltaTime) 
+			Neck.C0=Lerp(Neck.C0,cfMul(cf(0.0325 * sin((sine-0.05)*-7),1+0.025*sin(sine*14),0.05 * sin((sine+0.1)*14)),angles(-1.7453292519943295+0.04363323129985824*sin((sine-0.1)*14),0.03490658503988659*sin((sine+0.2)*7),3.141592653589793+0.08726646259971647*sin((sine+0.1)*7))),deltaTime) 
+			RightShoulder.C0=Lerp(RightShoulder.C0,cfMul(cf(1,0.4,0.25 * sin(sine*7)),angles(-0.5235987755982988,1.3962634015954636,0.5235987755982988+0.6108652381980153*sin(sine*-7))),deltaTime) 
+			LeftHip.C0=Lerp(LeftHip.C0,cfMul(cf(-1,-1+0.25*sin((sine+0.185)*-7),-0.125+0.35*sin((sine+0.075)*7)),angles(-0.17453292519943295+0.6108652381980153*sin(sine*-7),-1.5533430342749532+0.05672320068981571*sin(sine*-7),-0.17453292519943295)),deltaTime) 
+			LeftShoulder.C0=Lerp(LeftShoulder.C0,cfMul(cf(-1,0.4,0.25 * sin(sine*-7)),angles(-0.5235987755982988,-1.3962634015954636,-0.5235987755982988+0.6108652381980153*sin(sine*-7))),deltaTime) 
+			RightHip.C0=Lerp(RightHip.C0,cfMul(cf(1,-1+0.25*sin((sine+0.185)*7),-0.125+0.35*sin((sine+0.075)*-7)),angles(-0.17453292519943295+0.6108652381980153*sin(sine*7),1.53588974175501+0.05672320068981571*sin((sine+0.35)*7),0.17453292519943295)),deltaTime) 
+			--MW_animatorProgressSave: Torso,0,0,0,1,-105,3,-0.05,14,0,0.135,0.1,14,0,.5,-0.425,-7,0,0,0,1,180,6,0.1,-7,Head,0,0.0325,-0.05,-7,-100,2.5,-0.1,14,1,0.025,0,14,0,2,0.2,7,-0.0,0.05,0.1,14,180,5,0.1,7,RightArm,1,0,0,1,-30,0,0,1,0.4,0,0,1,80,0,0,1,0,0.25,0,7,30,35,0,-7,LeftLeg,-1,0,0,1,-10,35,0,-7,-1,0.25,0.185,-7,-89,3.25,0,-7,-0.125,0.35,0.075,7,-10,0,0,1,LeftArm,-1,0,0,1,-30,0,0,1,0.4,0,0,1,-80,0,0,1,0,0.25,0,-7,-30,35,0,-7,RightLeg,1,0,0,1,-10,35,-0,7,-1,0.25,0.185,7,88,3.25,0.35,7,-0.125,0.35,0.075,-7,10,0,0,1
+			i2.StudsOffsetWorldSpace=cframes[rootpart].Position 
+		end
+	})
+
+	addmode("f", {
+		modeEntered=function()
+			i1.Font=e.Font.Michroma
+			i1.FontSize=e.FontSize.Size14 
+			i1.Text="Renevant"
+			i1.TextColor3=c3(0.0,0.0,0) -- like this
+			i1.TextStrokeColor3=c3(1.0, 0.25, 0)
 			task.spawn(ShadeID, 1837829473, 5)
 		end,
 		idle = function()
@@ -2743,9 +2869,11 @@ end)
 
 
 
-insSet(btn("Stop",stopreanimate),"TextColor3",c3(0.75,0,0))
 
-lbl("Settings")
+
+insSet(btn("stop current script",stopreanimate),"TextColor3",c3(0.75,0,0))
+
+lbl("SETTINGS (REANIMATE TO APPLY)")
 
 local function swtc(txt,options,onchanged)
 	local current=0
@@ -2805,11 +2933,13 @@ swtc("changestate when fling",{
 },function(v)
 	flingchangestate=v
 end)
-
+lbl("(limb collision)")
 
 swtc("respawn tp",{
-	{value=true,text="random tp close"},
-	{value=false,text="stay at spawn"}
+	{value=3,text="hide body"},
+	{value=0,text="stay at spawn"},
+	{value=1,text="random tp close"},
+	{value=2,text="behind char"}
 },function(v)
 	respawntp=v
 end)
@@ -2838,10 +2968,25 @@ swtc("new character scripts",{
 	discharscripts=v
 end)
 
+swtc("breakjoints",{
+	{value=1,text="breakjoints+health"},
+	{value=2,text="health or breakjoints"},
+	{value=3,text="breakjoints"}
+},function(v)
+	breakjointsmethod=v
+end)
+
+swtc("set simulation radius",{
+	{value=true,text="yes"},
+	{value=false,text="no"},
+},function(v)
+	simrad=v
+end)
+
 local iscg,_=pcall(insSet,i10,"Parent",FindFirstChildOfClass(game,"CoreGui"))
 if not iscg then
-	insSet(i7,"Text","MeowVis")
+	insSet(i7,"Text","PLAYERGUI MODE")
 	insSet(i10,"Parent",pg)
 	twait(3)
 	insSet(i7,"Text",guiTheme.guiTitle)
-end 
+end
