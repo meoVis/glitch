@@ -2323,18 +2323,18 @@ btn("Ordinance Glitcher", function()
 		end,
 		idle = function()
 			if attackAnimation then return attackAnimation() end
-			Q.C0=Lerp(Q.C0,cfMul(cf(-5-1*sin((sine+0.9)*200),3+0.5*sin((sine+25)*45),0),angles(0.17453292519943295*sin(sine*521),2.2689280275926285+0.2617993877991494*sin((sine+0.8)*4),-3.141592653589793-0.2617993877991494*sin((sine+9)*4))),deltaTime) 
-			E.C0=Lerp(E.C0,cfMul(cf(-5-1*sin((sine+0.25)*200),3+0.5*sin((sine+25)*45),0),angles(0.17453292519943295*sin((sine+0.25)*521),0.6981317007977318-0.2617993877991494*sin((sine+0.8)*4),3.141592653589793+0.2617993877991494*sin((sine+12)*4))),deltaTime) 
-			R.C0=Lerp(R.C0,cfMul(cf(-5+1*sin((sine+1.2)*200),3+0.5*sin((sine+15)*45),0),angles(0.17453292519943295*sin(sine*521),0.8726646259971648-0.2617993877991494*sin((sine+0.8)*4),-0.2617993877991494+0.2617993877991494*sin((sine+8)*4))),deltaTime) 
-			T.C0=Lerp(T.C0,cfMul(cf(-5-1*sin((sine+0.6)*200),3+0.5*sin((sine+65)*45),0),angles(0.17453292519943295*sin(sine*521),2.443460952792061+0.2617993877991494*sin((sine+0.8)*4),-0.2617993877991494*sin((sine+8)*4))),deltaTime) 
-
-			LeftShoulder.C0=Lerp(LeftShoulder.C0,cfMul(cf(-1,0.3 * sin(sine*4),0),angles(-0.6108652381980153,-1.1344640137963142+0.2617993877991494*sin(sine*100),-1.2217304763960306+0.3490658503988659*sin((sine+0.5)*4))),deltaTime) 
-			LeftHip.C0=Lerp(LeftHip.C0,cfMul(cf(-1,-0.6-0.15*sin(sine*4),-0.2-0.05*sin(sine*4)),angles(-0.6108652381980153,-0.8726646259971648+0.08726646259971647*sin(sine*100),-0.7853981633974483+0.12217304763960307*sin(sine*100))),deltaTime) 
-			RightShoulder.C0=Lerp(RightShoulder.C0,cfMul(cf(1,0.3 * sin(sine*4),0),angles(-0.6108652381980153,1.0471975511965976-0.2617993877991494*sin(sine*100),1.2217304763960306-0.3490658503988659*sin((sine+0.5)*4))),deltaTime) 
-			RightHip.C0=Lerp(RightHip.C0,cfMul(cf(1.2,-0.1-0.15*sin(sine*4),-1-0.05*sin(sine*4)),angles(-0.2617993877991494,1.0471975511965976,0.6981317007977318-0.12217304763960307*sin(sine*100))),deltaTime) 
-			RootJoint.C0=Lerp(RootJoint.C0,cfMul(cf(0,-0.5+0.15*sin(sine*4),0),angles(-1.9198621771937625+0.10471975511965978*sin(sine*100),0,3.4033920413889427)),deltaTime) 
-			Neck.C0=Lerp(Neck.C0,cfMul(cf(0,1,0),angles(-2.2689280275926285-0.08726646259971647*sin((sine+0.25)*4),0.2617993877991494+0.08726646259971647*sin(sine*523),2.8797932657906435+0.06981317007977318*sin((sine+52)*623))),deltaTime) 
-			--MW_animatorProgressSave: ColossalCrystalGreatsword-Purple_Handle,-5,1,1.2,200,0,10,0,521,3,0.5,15,45,50,-15,0.8,4,-,0,0,1,-15,15,8,4,ColossalCrystalGreatsword-Black_Handle,-5.,-1,0.6,200,,10,0,521,3,0.5,65,45,140,15,0.8,4,,0,0,1,,-15,8,4,LeftArm,-1,0,0,1,-35,,0,1,0.,0.3,0,4,-65,15,0,100,0,0,0,1,-70,20,0.5,4,LeftLeg,-1,0,0,1,-35,0,0,1,-0.6,-0.15,0,4,-50,5,0,100,-0.2,-0.05,0,4,-45,7,0,100,ColossalCrystalGreatsword-Red_Handle,-5,-1,0.9,200,0,10,0,521,3,0.5,25,45,130,15,0.8,4,,0,0,1,-180,-15,9,4,RightArm,1,0,0,1,-35,,0,1,0.,0.3,0,4,60,-15,0,100,0,0,0,4,70,-20,0.5,4,RightLeg,1.2,0,0,1,-15,0,0,1,-0.1,-0.15,0,4,60,,0,100,-1,-0.05,0,4,40,-7,0,100,ColossalCrystalGreatsword-Blue_Handle,-5.,-1,0.25,200,0,10,0.25,521,3,0.5,25,45,40,-15,0.8,4,,0,0,1,180,15,12,4,Torso,0,0,0,1,-110,6,0,100,-0.5,0.15,0,4,0,,52,,0,0,0,1,195,0,0,1,Head,0,0,0,1,-130,-5,0.25,4,1,0,0,1,15,5,0,523,0,0,0,1,165,4,52,623
+			Q.C0=Lerp(Q.C0,cfMul(cf(-3-1*sin(sine*2),4+1*sin(sine*2),-1),angles(0,0.2617993877991494,1745.3292519943295*sin(sine*0.005))),deltaTime) 
+ E.C0=Lerp(E.C0,cfMul(cf(-3-1*sin(sine*2),4+1*sin(sine*2),-1),angles(0,0.2617993877991494,4.71238898038469+1745.3292519943295*sin(sine*0.005))),deltaTime) 
+ R.C0=Lerp(R.C0,cfMul(cf(-3-1*sin(sine*2),4+1*sin(sine*2),-1),angles(0,0.2617993877991494,3.141592653589793+1745.3292519943295*sin(sine*0.005))),deltaTime) 
+ T.C0=Lerp(T.C0,cfMul(cf(-3-1*sin(sine*2),4+1*sin(sine*2),-1),angles(0,0.2617993877991494,1.5707963267948966+1745.3292519943295*sin(sine*0.005))),deltaTime) 
+ 
+ RootJoint.C0=Lerp(RootJoint.C0,cfMul(cf(0,-0.2+0.1*sin((sine+0.25)*3),0),angles(-1.9198621771937625+0.08726646259971647*sin(sine*3),0,2.443460952792061)),deltaTime) 
+RightShoulder.C0=Lerp(RightShoulder.C0,cfMul(cf(1.5-0.1*sin((sine+0.5)*3),-1-0.1*sin((sine+0.75)*3),0.5),angles(-1.5707963267948966,-0.17453292519943295+0.2617993877991494*sin((sine+0.65)*3),2.2689280275926285-0.17453292519943295*sin((sine+0.15)*3))),deltaTime) 
+LeftShoulder.C0=Lerp(LeftShoulder.C0,cfMul(cf(-1.5+0.1*sin((sine+0.5)*3),-0.7-0.1*sin((sine+0.75)*3),0.5),angles(1.5707963267948966,2.792526803190927+0.2617993877991494*sin((sine+0.65)*3),1.0471975511965976+0.17453292519943295*sin((sine+0.15)*3))),deltaTime) 
+Neck.C0=Lerp(Neck.C0,cfMul(cf(0,1,0),angles(-1.3962634015954636-0.10471975511965978*sin((sine+0.5)*3),0.08726646259971647+0.10471975511965978*sin((sine+0.25)*150),3.839724354387525+0.2617993877991494*sin((sine+0.5)*100))),deltaTime) 
+RightHip.C0=Lerp(RightHip.C0,cfMul(cf(1+0.05*sin(sine*3),-1.3-0.05*sin((sine+2.5)*3),-0.2+0.1*sin((sine+0.075)*3)),angles(-0.7853981633974483-0.05235987755982989*sin(sine*3),1.0471975511965976-0.05235987755982989*sin(sine*3),0.3490658503988659+0.03490658503988659*sin((sine+0.25)*3))),deltaTime) 
+LeftHip.C0=Lerp(LeftHip.C0,cfMul(cf(-1+0.02*sin(sine*3),-0.75-0.15*sin((sine+0.2)*3),-0.8-0.02*sin((sine+0.25)*3)),angles(-0.7853981633974483,-1.0471975511965976-0.03490658503988659*sin(sine*3),-1.3962634015954636+0.12217304763960307*sin(sine*3))),deltaTime) 
+--MW_animatorProgressSave: Torso,0,,0,3,-110,5,0,3,-0.2,0.1,0.25,3,0,0,0.25,3,0,,0.075,3,140,,0,1,ColossalCrystalGreatsword-Blue_Handle,-3,-1,0,2,,0,0,1,4,1,0,2,15,0,0,1,-1,0,0,1,,100000,0,0.005,RightArm,1.5,-0.1,0.5,3,-90,0,0,1,-1,-0.1,0.75,3,-10,15,0.65,3,0.5,0,0,1,130,-10,0.15,3,LeftArm,-1.5,0.1,0.5,3,90,0,0,1,-0.7,-0.1,0.75,3,160,15,0.65,3,0.5,0,0,1,60,10,0.15,3,Head,0,0,0,1,-80,-6,0.5,3,1,0,0,1,5,6,0.25,150,0,0,0,1,220,15,0.5,100,RightLeg,1,0.05,,3,-45,-3,0,3,-1.3,-0.05,2.5,3,60,-3,0,3,-0.2,0.1,0.075,3,20,2,0.25,3,ColossalCrystalGreatsword-Red_Handle,-3,-1,0,2,,0,0,1,4,1,0,2,15,0,0,1,-1,0,0,1,270,100000,0,0.005,ColossalCrystalGreatsword-Black_Handle,-3,-1,0,2,,0,0,1,4,1,0,2,15,0,0,1,-1,,0,1,180,100000,0,0.005,ColossalCrystalGreatsword-Purple_Handle,-3,-1,0,2,,0,0,1,4,1,0,2,15,0,0,1,-1,0,0,1,90,100000,0,0.005,LeftLeg,-1.,0.02,0,3,-45,,0,1,-0.75,-0.15,0.2,3,-60,-2,0,3,-0.8,-0.02,0.25,3,-80,7,0,3
 			i2.StudsOffsetWorldSpace=cframes[rootpart].Position 
 		end,
 		walk = function()
@@ -2346,11 +2346,11 @@ btn("Ordinance Glitcher", function()
 
 			local Ychg=velYchg()/20
 			t.setWalkSpeed(17)
-			Q.C0=Lerp(Q.C0,cfMul(cf(-5-1*sin((sine+0.9)*200),3+0.5*sin((sine+25)*45),0),angles(0.17453292519943295*sin(sine*521),2.2689280275926285+0.2617993877991494*sin((sine+0.8)*4),-3.141592653589793-0.2617993877991494*sin((sine+9)*4))),deltaTime) 
-			E.C0=Lerp(E.C0,cfMul(cf(-5-1*sin((sine+0.25)*200),3+0.5*sin((sine+25)*45),0),angles(0.17453292519943295*sin((sine+0.25)*521),0.6981317007977318-0.2617993877991494*sin((sine+0.8)*4),3.141592653589793+0.2617993877991494*sin((sine+12)*4))),deltaTime) 
-			R.C0=Lerp(R.C0,cfMul(cf(-5+1*sin((sine+1.2)*200),3+0.5*sin((sine+15)*45),0),angles(0.17453292519943295*sin(sine*521),0.8726646259971648-0.2617993877991494*sin((sine+0.8)*4),-0.2617993877991494+0.2617993877991494*sin((sine+8)*4))),deltaTime) 
-			T.C0=Lerp(T.C0,cfMul(cf(-5-1*sin((sine+0.6)*200),3+0.5*sin((sine+65)*45),0),angles(0.17453292519943295*sin(sine*521),2.443460952792061+0.2617993877991494*sin((sine+0.8)*4),-0.2617993877991494*sin((sine+8)*4))),deltaTime) 
-
+	Q.C0=Lerp(Q.C0,cfMul(cf(-3-1*sin(sine*2),4+1*sin(sine*2),-1),angles(0,0.2617993877991494,1745.3292519943295*sin(sine*0.005))),deltaTime) 
+ E.C0=Lerp(E.C0,cfMul(cf(-3-1*sin(sine*2),4+1*sin(sine*2),-1),angles(0,0.2617993877991494,4.71238898038469+1745.3292519943295*sin(sine*0.005))),deltaTime) 
+ R.C0=Lerp(R.C0,cfMul(cf(-3-1*sin(sine*2),4+1*sin(sine*2),-1),angles(0,0.2617993877991494,3.141592653589793+1745.3292519943295*sin(sine*0.005))),deltaTime) 
+ T.C0=Lerp(T.C0,cfMul(cf(-3-1*sin(sine*2),4+1*sin(sine*2),-1),angles(0,0.2617993877991494,1.5707963267948966+1745.3292519943295*sin(sine*0.005))),deltaTime) 
+ 
 			RootJoint.C0=Lerp(RootJoint.C0,cfMul(cf(0,0.135 * sin((sine+0.1)*14),0),angles(-1.8325957145940461+0.05235987755982989*sin((sine-0.05)*14),0.008726646259971648*sin((sine-0.425)*-7),3.141592653589793+0.10471975511965978*sin((sine+0.1)*-7))),deltaTime) 
 			Neck.C0=Lerp(Neck.C0,cfMul(cf(0.0325 * sin((sine-0.05)*-7),1+0.025*sin(sine*14),0.05 * sin((sine+0.1)*14)),angles(-1.7453292519943295+0.04363323129985824*sin((sine-0.1)*14),0.03490658503988659*sin((sine+0.2)*7),3.141592653589793+0.08726646259971647*sin((sine+0.1)*7))),deltaTime) 
 			RightShoulder.C0=Lerp(RightShoulder.C0,cfMul(cf(1,0.4,0.25 * sin(sine*7)),angles(-0.5235987755982988,1.3962634015954636,0.5235987755982988+0.6108652381980153*sin(sine*-7))),deltaTime) 
